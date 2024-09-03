@@ -1,0 +1,7 @@
+.idea
+logs/
+sra_files/
+fastq_files/
+trimmed_fastq_files/
+third_party/*
+output/*
