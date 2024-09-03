@@ -8,7 +8,7 @@ from service.utility import setup_logger
 
 class TrimGaloreTrimmer:
     def __init__(self):
-        self.trim_galore_path = Path("./TrimGalore/trim_galore")
+        self.trim_galore_path = Path("./third_party/TrimGalore/trim_galore")
         self.raw_seq_directory = Path("./output/fastq_files")
         self.output_directory = Path("./output/trimmed_fastq_files")
         self.logger = setup_logger(name="trim_galore", has_console_handler=True)

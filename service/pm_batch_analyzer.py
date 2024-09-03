@@ -9,8 +9,8 @@ class PMBatchAnalyzer:
         self.trimmed_fastq_files = Path("./output/trimmed_fastq_files")
         self.sample_stats_dir = self.trimmed_fastq_files / "sample_stats"
         self.fq_word_count_path = Path("./output/fq_word_count.txt")
-        self.usearch_path = Path("./usearch11.0.667_i86linux32")
-        self.pm_path = Path("./parallel-meta-suite/bin")
+        self.usearch_path = Path("./third_party/usearch11.0.667_i86linux32")
+        self.pm_path = Path("./third_party/parallel-meta-suite/bin")
         self.output_directory = Path("./output/processed_pm_data")
         self.seqs_list_file = Path("./output/seqs.list")
         self.meta_file = Path("./output/meta.txt")
