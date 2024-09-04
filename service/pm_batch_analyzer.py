@@ -29,10 +29,6 @@ class PMBatchAnalyzer:
                 stdout=stats_file,
             )
 
-        # Move sample_stats directory to the parent directory
-        # parent_dir = self.trimmed_fastq_files.parent
-        # self.sample_stats_dir.rename(parent_dir / self.sample_stats_dir.name)
-
     def get_filtered_samples(self) -> list[str]:
         fq_files = list(self.trimmed_fastq_files.glob("*.fq"))
 
@@ -43,7 +39,6 @@ class PMBatchAnalyzer:
                 )
                 fq_word_count_file.write(result.stdout)
 
-        # Remove the last line from fq_word_count.txt
         with self.fq_word_count_path.open("r+") as fq_word_count_file:
             lines = fq_word_count_file.readlines()
             fq_word_count_file.seek(0)
@@ -101,11 +96,11 @@ class PMBatchAnalyzer:
         self.pm_output.mkdir(exist_ok=True)
 
         # fmt: off
-        pipeline_command = [
+        otu_abundance_command = [
             str(self.pm_path / "PM-pipeline"), "-i", str(self.seqs_list_file), "-m", str(self.meta_file), "-o",
             str(self.pm_output),
         ]
-        run_command(pipeline_command)
+        run_command(otu_abundance_command)
 
         func_abundance_command = [
             str(self.pm_path / "PM-predict-func"), "-T", str(self.pm_output / "Abundance_Tables/taxa.OTU.Count"),
