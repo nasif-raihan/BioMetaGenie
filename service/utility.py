@@ -24,7 +24,7 @@ def time_execution(func):
 
 def setup_logger(
     name: str,
-    log_directory: Path = Path("../logs"),
+    log_directory: Path = Path("./logs"),
     has_file_handler: bool = True,
     has_console_handler: bool = False,
 ):
