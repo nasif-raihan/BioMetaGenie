@@ -6,3 +6,6 @@ clear-output:
 
 clear-logs:
 	sudo rm -r ./logs/*
+
+install:
+	poetry install --no-root
