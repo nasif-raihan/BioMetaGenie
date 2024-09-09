@@ -3,8 +3,9 @@
 # shellcheck disable=SC2035
 # shellcheck disable=SC2164
 # shellcheck disable=SC1090
+# shellcheck disable=SC2155
+# shellcheck disable=SC2034
 
-LOG_FILE="setup_log.txt"
 exec > >(tee -a $LOG_FILE) 2>&1  # Log all output to a file and print to console
 
 echo "========== Starting Setup Script =========="
@@ -21,7 +22,9 @@ fi
 
 echo "Extracting SRA Toolkit..."
 tar -vxzf sratoolkit.tar.gz
-export "PATH=$(PATH):$(pwd)/sratoolkit.*/bin"  >> ~/.bashrc
+SRA_TOOLKIT_DIR=$(find "$(pwd)" -type d -name 'sratoolkit.*' | head -n 1)
+export PATH="$PATH:$SRA_TOOLKIT_DIR/bin"
+echo "export PATH=\"\$PATH:$SRA_TOOLKIT_DIR/bin\"" >> ~/.bashrc
 echo "SRA Toolkit installation complete."
 
 # Download Seqkit
@@ -76,8 +79,8 @@ fi
 
 echo "Extracting Parallel Meta..."
 tar -zxvf parallel-meta-suite-3.7-src.tar.gz
-echo "export ParallelMETA=$(pwd)/parallel-meta-suite"
-echo "export PATH=$(PATH):$(ParallelMETA)/bin" >> ~/.bashrc
+echo "export ParallelMETA=\"$(pwd)/parallel-meta-suite\"" >> ~/.bashrc
+echo "export PATH=\"\$PATH:\$ParallelMETA/bin\"" >> ~/.bashrc
 cd parallel-meta-suite
 
 echo "Building Parallel Meta..."
