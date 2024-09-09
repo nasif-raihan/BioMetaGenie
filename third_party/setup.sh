@@ -43,7 +43,7 @@ echo "Seqkit installation complete."
 
 # Download usearch
 echo "Downloading USEARCH..."
-if wget https://www.drive5.com/downloads/usearch11.0.667_i86linux32.gz -O usearch; then
+if wget https://www.drive5.com/downloads/usearch11.0.667_i86linux32.gz; then
     echo "USEARCH downloaded successfully."
 else
     echo "Failed to download USEARCH." >&2
@@ -52,7 +52,7 @@ fi
 
 echo "Extracting USEARCH..."
 gunzip usearch11.0.667_i86linux32.gz
-echo "export usearch=$(pwd)/usearch" >> ~/.bashrc
+echo "export usearch=$(pwd)/usearch11.0.667_i86linux32" >> ~/.bashrc
 echo "USEARCH installation complete."
 
 # Download Trim Galore
