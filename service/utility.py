@@ -16,7 +16,7 @@ def time_execution(func):
         seconds, nanoseconds = divmod(remainder, 10**9)
 
         formatted_time = f"{int(hours):0d}h {int(minutes):02d}m {int(seconds):02d}s {int(nanoseconds):09d}ns"
-        print(f"Execution time (function -> {func.__name__}): {formatted_time}")
+        print(f"\nExecution time (function -> {func.__name__}): {formatted_time}\n")
         return result
 
     return wrapper

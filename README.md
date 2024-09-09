@@ -48,9 +48,12 @@ To get started with BioMetaGenie, follow these instructions:
 
 ## Usage
 
-BioMetaGenie simplifies complex workflows into a single command. After installation, run the following command to execute the entire process:
+BioMetaGenie simplifies complex workflows into a single command. 
+After installation, run the following command from _**root directory (BioMetaGenie)**_ to execute the entire process:
 
 ```bash
+make install
+poetry shell
 make run
 ```
 
