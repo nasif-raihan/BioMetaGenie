@@ -6,5 +6,5 @@ sra_files/
 fastq_files/
 trimmed_fastq_files/
 third_party/*
-!third_party/setup.sh
+!third_party/setup-for-linux.sh
 output/*
