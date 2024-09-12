@@ -29,13 +29,12 @@ To get started with BioMetaGenie, follow these instructions:
    ```
 
 3. **Setup Third-Party Dependencies**:
-   - Install the required tools:
-     - SRA Toolkit
-     - Seqkit
-     - Usearch11
-     - TrimGalore
-     - Parallel Meta
-   - Execute the setup script:
+   - Install the required tools by executing the setup script::
+     - [SRA Toolkit](https://github.com/ncbi/sra-tools/wiki/02.-Installing-SRA-Toolkit)
+     - [Seqkit](https://bioinf.shenwei.me/seqkit/download/)
+     - [Usearch11](https://www.drive5.com/usearch/download.html)
+     - [TrimGalore](https://github.com/FelixKrueger/TrimGalore)
+     - [Parallel Meta](https://github.com/qdu-bioinfo/parallel-meta-suite)
      ```bash
      cd third_party
      bash setup-for-linux.sh
