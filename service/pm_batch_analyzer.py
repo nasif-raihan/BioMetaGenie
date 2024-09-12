@@ -7,7 +7,6 @@ from service.utility import time_execution, run_command, setup_logger
 class PMBatchAnalyzer:
     def __init__(self):
         self.trimmed_fastq_files = Path("./output/trimmed_fastq_files")
-        self.sample_stats_dir = Path("./output/sample_stats")
         self.fq_word_count_path = Path("./output/fq_word_count.txt")
         self.usearch_path = Path("./third_party/usearch11.0.667_i86linux32")
         self.pm_path = Path("./third_party/parallel-meta-suite/bin")
@@ -16,18 +15,6 @@ class PMBatchAnalyzer:
         self.seqs_list_file = Path("./output/seqs.list")
         self.meta_file = Path("./output/meta.txt")
         self.logger = setup_logger(name="pm_pipeline", has_console_handler=True)
-
-        self.sample_stats_dir.mkdir(parents=True, exist_ok=True)
-
-    def get_sample_stats(self):
-        sample_stats_path = self.sample_stats_dir / "sample_stats.txt"
-        fq_files = list(self.trimmed_fastq_files.glob("*.fq"))
-
-        with sample_stats_path.open("w") as stats_file:
-            subprocess.run(
-                ["seqkit", "stats"] + [str(fq_file) for fq_file in fq_files],
-                stdout=stats_file,
-            )
 
     def get_filtered_samples(self) -> list[str]:
         fq_files = list(self.trimmed_fastq_files.glob("*.fq"))
@@ -85,7 +72,8 @@ class PMBatchAnalyzer:
             str(self.usearch_path), "-fastq_mergepairs", str(forward_read), "-reverse", str(reverse_read), "-relabel",
             "@", "-fastq_maxdiffs", "10", "-fastq_pctid", "80", "-fastqout", str(merged_file),
         ]
-        run_command(command)
+        if run_command(command):
+            self.logger.info(f"Successfully merged R1 and R2 of {sample_id=}")
         # fmt: on
 
         return merged_file
@@ -100,13 +88,15 @@ class PMBatchAnalyzer:
             str(self.pm_path / "PM-pipeline"), "-i", str(self.seqs_list_file), "-m", str(self.meta_file), "-o",
             str(self.pm_output),
         ]
-        run_command(otu_abundance_command)
+        if run_command(otu_abundance_command):
+            self.logger.info("Successfully executed PM-pipeline (Step 1/4).")
 
         func_abundance_command = [
             str(self.pm_path / "PM-predict-func"), "-T", str(self.pm_output / "Abundance_Tables/taxa.OTU.Count"),
             "-o", str(self.pm_output / "Abundance_Tables/func"),
         ]
-        run_command(func_abundance_command)
+        if run_command(func_abundance_command):
+            self.logger.info("Successfully executed PM-predict-func (Step 2/4).")
 
         for level in [2, 3]:
             select_func_command = [
@@ -114,11 +104,12 @@ class PMBatchAnalyzer:
                 str(self.pm_output / f"Abundance_Tables/func.KO.Count"), "-o",
                 str(self.pm_output / "Abundance_Tables/func"), "-L", str(level),
             ]
-            run_command(select_func_command)
+            if run_command(select_func_command):
+                self.logger.info(f"Successfully executed PM-select-func -L {level} (Step {level+1}/4).")
+
         # fmt: on
 
     def analyze(self):
-        self.get_sample_stats()
         with self.meta_file.open("w") as meta, self.seqs_list_file.open(
             "w"
         ) as seqs_list:
@@ -131,3 +122,4 @@ class PMBatchAnalyzer:
                 seqs_list.write(f"{sample_id} {merged_file}\n")
 
         self.run_parallel_meta()
+        self.logger.info(f"Successfully completed PM-meta batch analysis")

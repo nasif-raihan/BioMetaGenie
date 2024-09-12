@@ -11,6 +11,9 @@ class TrimGaloreTrimmer:
         self.trim_galore_path = Path("./third_party/TrimGalore/trim_galore")
         self.raw_seq_directory = Path("./output/fastq_files")
         self.output_directory = Path("./output/trimmed_fastq_files")
+        self.sample_stats_dir = Path("./output/sample_stats")
+        self.fq_word_count_path = Path("./output/fq_word_count.txt")
+
         self.logger = setup_logger(name="trim_galore", has_console_handler=True)
 
     def trim(self):
@@ -21,6 +24,22 @@ class TrimGaloreTrimmer:
             self.logger.info(
                 f"#--- Completed trimming of {index+1}/{total_kit_count} ---#"
             )
+        self.get_sample_stats()
+
+    def get_sample_stats(self):
+        self.sample_stats_dir.mkdir(parents=True, exist_ok=True)
+        sample_stats_path = self.sample_stats_dir / "sample_stats.txt"
+        fq_files = list(self.output_directory.glob("*.fq"))
+
+        with sample_stats_path.open("w") as stats_file:
+            subprocess.run(
+                ["seqkit", "stats"] + [str(fq_file) for fq_file in fq_files],
+                stdout=stats_file,
+            )
+
+        self.logger.info(
+            f"Generated seqkit statistics of sequences at {str(sample_stats_path)}"
+        )
 
     @property
     def get_unique_prefixes(self) -> Set[str]:
