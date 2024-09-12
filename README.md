@@ -1,6 +1,10 @@
 # BioMetaGenie
+![Version](https://img.shields.io/badge/Version-1.0-brightgreen)
 
-BioMetaGenie is an advanced bioinformatics toolkit designed to streamline and integrate the processes of downloading, processing, and analyzing genomic data. By consolidating multiple powerful tools into a single, user-friendly interface, BioMetaGenie provides an efficient end-to-end workflow for genomic data management.
+BioMetaGenie is an advanced bioinformatics toolkit designed to streamline and integrate the processes of downloading, 
+processing, and analyzing genomic data. By consolidating multiple powerful tools into one intuitive CLI interface, 
+BioMetaGenie provides an efficient end-to-end workflow for genomic data preprocessing, significantly easing 
+the workload for researchers.
 
 ## Features
 
@@ -34,9 +38,10 @@ To get started with BioMetaGenie, follow these instructions:
    - Execute the setup script:
      ```bash
      cd third_party
-     bash setup.sh
+     bash setup-for-linux.sh
      ```
-
+    Currently, the setup script only supports Linux distributions. Contributions are welcome to extend cross-platform 
+    compatibility by creating `setup-for-win.sh` for Windows and `setup-for-mac.sh` for macOS. <br><br>
 4. **Make Usearch11 Executable**:
    ```bash
    chmod +x usearch11.0.667_i86linux32
@@ -49,13 +54,45 @@ To get started with BioMetaGenie, follow these instructions:
 ## Usage
 
 BioMetaGenie simplifies complex workflows into a single command. 
-After installation, run the following command from _**root directory (BioMetaGenie)**_ to execute the entire process:
+After installation, run the following command from `root` directory _**(BioMetaGenie)**_ to execute the entire process:
 
 ```bash
-make install
-poetry shell
-make run
+    make install
+    poetry shell
+    make run
 ```
+
+### Some other example usages:
+- **Download SRA**: 
+    ```bash
+        python script.py download_sra SRR123456
+    ```
+- **Convert to FASTQ**: 
+    ```bash
+        python script.py convert_to_fastq SRR123456
+    ```
+- **Download and process a list**: 
+    ```bash
+        python script.py process_sra_list
+    ```
+- **Trim sequences**: 
+    ```bash
+        python script.py trim
+    ```
+- **Get sample stats**: 
+    ```bash
+        python script.py get_sample_stats
+    ```
+- **Merge reads**: 
+    ```bash
+        python script.py merge_reads sample123
+    ```
+- **Analyze**: 
+    ```bash
+        python script.py analyze
+    ```
+
+All the outputs will be stored in the `output` directory.
 
 ## Contributing
 
