@@ -1,4 +1,4 @@
-# BioMetaGenie
+# 🧬 BioMetaGenie
 ![release-v1.0](https://img.shields.io/badge/release-v1.0-brightgreen)
 ![license-MIT](https://img.shields.io/badge/license-MIT-blue)
 
