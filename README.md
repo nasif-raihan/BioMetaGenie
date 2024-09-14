@@ -33,7 +33,7 @@ To get started with BioMetaGenie, follow these instructions:
    ```
 
 3. **Setup Third-Party Dependencies**:
-   - Install the required tools by executing the setup script::
+   - Install the required tools by executing the setup main::
      - [SRA Toolkit](https://github.com/ncbi/sra-tools/wiki/02.-Installing-SRA-Toolkit)
      - [Seqkit](https://bioinf.shenwei.me/seqkit/download/)
      - [Usearch11](https://www.drive5.com/usearch/download.html)
@@ -43,7 +43,7 @@ To get started with BioMetaGenie, follow these instructions:
      cd third_party
      bash setup-for-linux.sh
      ```
-    Currently, the setup script only supports Linux distributions. Contributions are welcome to extend cross-platform 
+    Currently, the setup main only supports Linux distributions. Contributions are welcome to extend cross-platform 
     compatibility by creating `setup-for-win.sh` for Windows and `setup-for-mac.sh` for macOS. <br><br>
 4. **Make Usearch11 Executable**:
    ```bash
@@ -68,31 +68,31 @@ After installation, run the following command from `root` directory _**(BioMetaG
 ### Some other example usages:
 - **Download SRA**: 
     ```bash
-        python script.py download_sra SRR123456
+        python main.py download_sra SRR123456
     ```
 - **Convert to FASTQ**: 
     ```bash
-        python script.py convert_to_fastq SRR123456
+        python main.py convert_to_fastq SRR123456
     ```
 - **Download and process a list**: 
     ```bash
-        python script.py process_sra_list
+        python main.py process_sra_list
     ```
 - **Trim sequences**: 
     ```bash
-        python script.py trim
+        python main.py trim
     ```
 - **Get sample stats**: 
     ```bash
-        python script.py get_sample_stats
+        python main.py get_sample_stats
     ```
 - **Merge reads**: 
     ```bash
-        python script.py merge_reads sample123
+        python main.py merge_reads sample123
     ```
 - **Analyze**: 
     ```bash
-        python script.py analyze
+        python main.py analyze
     ```
 
 All the outputs will be stored in the `output` directory.
