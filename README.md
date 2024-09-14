@@ -1,5 +1,6 @@
 # BioMetaGenie
-![Version](https://img.shields.io/badge/Version-1.0-brightgreen)
+![release-v1.0](https://img.shields.io/badge/release-v1.0-brightgreen)
+![license-MIT](https://img.shields.io/badge/license-MIT-blue)
 
 BioMetaGenie is an advanced bioinformatics toolkit designed to streamline and integrate the processes of downloading, 
 processing, and analyzing genomic data. By consolidating multiple powerful tools into one intuitive CLI interface, 
